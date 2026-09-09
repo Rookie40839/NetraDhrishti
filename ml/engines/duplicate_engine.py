@@ -22,6 +22,8 @@ def run_duplicate_engine():
     
     for dist in districts:
         dist_works = df[df['implementing_district'] == dist]
+        if len(dist_works) > 60:
+            dist_works = dist_works.sort_values(by='sanction_amount', ascending=False).head(60)
         n = len(dist_works)
         
         # O(n^2) within district

@@ -29,6 +29,7 @@ public class AuditLog {
     private String targetId;
 
     @Column(columnDefinition = "jsonb")
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.JSON)
     private String details;
 
     @Column(nullable = false)

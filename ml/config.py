@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
+# Load .env from ml directory as well as current working directory
 load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 DB_URL = os.getenv("SUPABASE_DB_URL")
 

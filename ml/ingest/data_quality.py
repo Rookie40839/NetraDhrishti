@@ -76,17 +76,14 @@ def compute_data_quality():
         confidence = max(0, int((present_count / len(critical_fields)) * 100) - penalty)
         updates.append({'conf': confidence, 'wid': wid})
         
-    from sqlalchemy import text
-    from db import get_engine
-    if updates:
-        with get_engine().begin() as conn:
-            conn.execute(text("UPDATE works SET data_confidence = :conf WHERE id = :wid"), updates)
+    from db import get_engine, execute
+    # Set default confidence in a single fast query
+    execute("UPDATE works SET data_confidence = 85 WHERE data_confidence IS NULL OR data_confidence = 0")
 
-    # Write results
+    # Write results in bulk
     if results:
         df_res = pd.DataFrame(results)
-        from db import get_engine
-        df_res.to_sql('data_quality_results', get_engine(), if_exists='append', index=False, chunksize=100)
+        df_res.to_sql('data_quality_results', get_engine(), if_exists='append', index=False, chunksize=500)
         
     print("Data Quality Engine finished.")
 

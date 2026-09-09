@@ -35,6 +35,7 @@ public class DetectionResult {
     private String description;
 
     @Column(columnDefinition = "jsonb")
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.JSON)
     private String evidence;
 
     private Integer confidence;

@@ -107,9 +107,19 @@ public class WorksController {
 
         Page<Work> workPage = workRepository.findAll(spec, pageable);
 
+        List<Long> workIds = workPage.getContent().stream().map(Work::getId).collect(Collectors.toList());
+        Map<Long, RiskScore> scoreMap = workIds.isEmpty() ? Collections.emptyMap() :
+                riskScoreRepository.findByWorkIdIn(workIds).stream()
+                        .filter(rs -> rs.getWorkId() != null)
+                        .collect(Collectors.toMap(RiskScore::getWorkId, rs -> rs, (a, b) -> a));
+        Map<Long, List<ComplianceFlag>> flagMap = workIds.isEmpty() ? Collections.emptyMap() :
+                complianceFlagRepository.findByWorkIdIn(workIds).stream()
+                        .filter(f -> f.getWorkId() != null)
+                        .collect(Collectors.groupingBy(ComplianceFlag::getWorkId));
+
         List<WorkDTO> dtoList = workPage.getContent().stream().map(work -> {
-            var score = riskScoreRepository.findByWorkId(work.getId()).orElse(null);
-            var flags = complianceFlagRepository.findByWorkId(work.getId());
+            var score = scoreMap.get(work.getId());
+            var flags = flagMap.getOrDefault(work.getId(), Collections.emptyList());
             return new WorkDTO(work, score, flags);
         }).filter(dto -> {
             if (riskLevel == null || riskLevel.trim().isEmpty()) return true;

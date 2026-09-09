@@ -1,0 +1,180 @@
+{
+  "dataset_metadata": {
+    "source_file": "sih.csv",
+    "total_transactions": 108695,
+    "total_expenditure_crore": 3995.34,
+    "date_range": [
+      "2023-07-27",
+      "2026-09-03"
+    ],
+    "states_count": 35,
+    "constituencies_count": 530,
+    "mps_count": 700,
+    "vendors_count": 28206,
+    "idas_count": 765
+  },
+  "critical_red_flags": {
+    "exact_duplicate_rows": 32382,
+    "duplicate_financial_payments": 32421,
+    "high_concentration_monopoly_idas": 51,
+    "tender_splitting_burst_incidents": 1177,
+    "isolation_forest_cost_outliers": 2171,
+    "micro_transactions_under_100_inr": 108,
+    "mega_transactions_over_50_lakh_inr": 232,
+    "payment_in_progress_crore": 103.66
+  },
+  "top_monopoly_districts": [
+    {
+      "IDA": "Shamator(Deputy Commissioner Shamator_IDA)",
+      "hhi": 10000.0,
+      "total_exp": 10500000.0,
+      "top_vendor": "Y RHEKHUM",
+      "top_vendor_share": 100.0
+    },
+    {
+      "IDA": "KAMJONG(Deputy Commissioner Kamjong MPLADS_ida)",
+      "hhi": 10000.0,
+      "total_exp": 16200000.0,
+      "top_vendor": "Raman Chihansung",
+      "top_vendor_share": 100.0
+    },
+    {
+      "IDA": "SIMDEGA(Deputy Commissioner simdega_IDA)",
+      "hhi": 10000.0,
+      "total_exp": 20600000.0,
+      "top_vendor": "EE NREP SIMDEGA",
+      "top_vendor_share": 100.0
+    },
+    {
+      "IDA": "GADAG(Deputy Commsioner Gadag_ida)",
+      "hhi": 10000.0,
+      "total_exp": 24400000.0,
+      "top_vendor": "Project Manager Nirmiti kendra gadag",
+      "top_vendor_share": 100.0
+    },
+    {
+      "IDA": "KISHANGANJ(DISTRICT PLANNING OFFICER KISHANGANJ_IDA)",
+      "hhi": 10000.0,
+      "total_exp": 61015400.0,
+      "top_vendor": "RANJIT SALES CORPORATION",
+      "top_vendor_share": 100.0
+    },
+    {
+      "IDA": "CHATRA(DEPUTY COMMISSIONER CHATRA_IDA)",
+      "hhi": 10000.0,
+      "total_exp": 28661363.0,
+      "top_vendor": "District Engineer",
+      "top_vendor_share": 100.0
+    },
+    {
+      "IDA": "IMPHAL EAST(Deputy Commissioner Imphal East_IDA)",
+      "hhi": 10000.0,
+      "total_exp": 27117000.0,
+      "top_vendor": "Murphy Thumrah",
+      "top_vendor_share": 100.0
+    },
+    {
+      "IDA": "UTTARA KANNADA(DEPUTY COMMISSIONER UTTARKANNADA KARWAR_IDA)",
+      "hhi": 9776.648007693424,
+      "total_exp": 33200000.0,
+      "top_vendor": "ZILLA NIRMITi KENDRA",
+      "top_vendor_share": 98.87048192771084
+    },
+    {
+      "IDA": "Davanagere(DEPUTY COMMISSIONER DAUANAGERE_IDA)",
+      "hhi": 9665.14294144504,
+      "total_exp": 58186763.0,
+      "top_vendor": "NIRMITHI KENDRA DAVANGERE",
+      "top_vendor_share": 98.30414522285764
+    },
+    {
+      "IDA": "AMROHA(DISTRICT MAGISTRATE JYOTIBAPHULE NAGAR_IDA)",
+      "hhi": 9362.356226490045,
+      "total_exp": 60258725.0,
+      "top_vendor": "Siddhu Enterprises",
+      "top_vendor_share": 96.7261388288584
+    }
+  ],
+  "top_splitting_incidents": [
+    {
+      "Vendor": "JAI SHREE SHYAM CONTRACTOR",
+      "IDA": "HAMIRPUR(DISTRICT MAGISTRATE HAMIRPUR_2)",
+      "Expenditure Date": "2025-06-12T00:00:00.000Z",
+      "tx_count": 124,
+      "burst_total": 29809340.0,
+      "avg_tx": 240397.90322580645
+    },
+    {
+      "Vendor": "Gandhi Construction And Supplier",
+      "IDA": "BHADOHI(DISTRICT MAGISTRATE BHADOHI_IDA)",
+      "Expenditure Date": "2025-05-17T00:00:00.000Z",
+      "tx_count": 114,
+      "burst_total": 13563970.0,
+      "avg_tx": 118982.19298245614
+    },
+    {
+      "Vendor": "Advent Infomax Pvt Ltd",
+      "IDA": "JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)",
+      "Expenditure Date": "2025-12-05T00:00:00.000Z",
+      "tx_count": 112,
+      "burst_total": 2238768.0,
+      "avg_tx": 19989.0
+    },
+    {
+      "Vendor": "Shiv Kumar",
+      "IDA": "KHERI(DISTRICT MAGISTRAE KHERI_IDA)",
+      "Expenditure Date": "2025-09-21T00:00:00.000Z",
+      "tx_count": 112,
+      "burst_total": 6462188.0,
+      "avg_tx": 57698.107142857145
+    },
+    {
+      "Vendor": "SHRI NAVKAR METALS LIMITED",
+      "IDA": "BIDAR(DEPUTY COMMISSIONER BIDAR_IDA)",
+      "Expenditure Date": "2025-08-20T00:00:00.000Z",
+      "tx_count": 103,
+      "burst_total": 606600.0,
+      "avg_tx": 5889.320388349514
+    },
+    {
+      "Vendor": "DPS PUBLISHING HOUSE",
+      "IDA": "Siddharthnagar(DISTRICT MAGISTRATE SIDDHARTH NAGAR_IDA)",
+      "Expenditure Date": "2024-04-13T00:00:00.000Z",
+      "tx_count": 103,
+      "burst_total": 2135000.0,
+      "avg_tx": 20728.155339805824
+    },
+    {
+      "Vendor": "Aaradhya Enterprises",
+      "IDA": "VARANASI(DISTRICT MAGISTRAE VARANASI_IDA)",
+      "Expenditure Date": "2025-09-22T00:00:00.000Z",
+      "tx_count": 98,
+      "burst_total": 3686144.0,
+      "avg_tx": 37613.71428571428
+    },
+    {
+      "Vendor": "BHAGWATI CHAND",
+      "IDA": "JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)",
+      "Expenditure Date": "2026-04-07T00:00:00.000Z",
+      "tx_count": 91,
+      "burst_total": 2737057.0,
+      "avg_tx": 30077.54945054945
+    },
+    {
+      "Vendor": "BHAGWATI CHAND",
+      "IDA": "JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)",
+      "Expenditure Date": "2026-04-06T00:00:00.000Z",
+      "tx_count": 88,
+      "burst_total": 1745392.0,
+      "avg_tx": 19834.0
+    },
+    {
+      "Vendor": "Gul Ahmad Contractor",
+      "IDA": "BIJNOR(DISTRICT MAGISTRATE BIJNOR_IDA)",
+      "Expenditure Date": "2026-03-24T00:00:00.000Z",
+      "tx_count": 86,
+      "burst_total": 2306434.0,
+      "avg_tx": 26819.0
+    }
+  ]
+}

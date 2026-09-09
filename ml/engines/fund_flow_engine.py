@@ -57,6 +57,7 @@ def run_fund_flow_engine():
             
         # Type 5: End of Year Spending
         if not my_rels.empty:
+            my_rels = my_rels.copy()
             my_rels['month'] = pd.to_datetime(my_rels['release_date']).dt.month
             march_rels = my_rels[my_rels['month'] == 3]['amount'].sum()
             if march_rels / total_rel > 0.50 and total_rel > 0:

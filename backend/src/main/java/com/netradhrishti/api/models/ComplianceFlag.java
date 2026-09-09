@@ -34,6 +34,7 @@ public class ComplianceFlag {
     private String description;
 
     @Column(name = "evidence", columnDefinition = "jsonb")
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.JSON)
     private String evidence;
 
     @Column(name = "observed_value")

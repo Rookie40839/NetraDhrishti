@@ -53,6 +53,7 @@ public class RiskScore {
     private Integer dataConfidence = 0;
 
     @Column(name = "reason_codes", columnDefinition = "jsonb")
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.JSON)
     private String reasonCodes;
 
     @Column(name = "inspection_mandatory")

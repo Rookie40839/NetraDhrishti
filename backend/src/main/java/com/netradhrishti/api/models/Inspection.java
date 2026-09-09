@@ -36,6 +36,7 @@ public class Inspection {
     private String findings;
 
     @Column(name = "evidence_references", columnDefinition = "jsonb")
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.JSON)
     private String evidenceReferences;
 
     @Column(name = "review_decision")
