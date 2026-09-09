@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import json
 from sklearn.ensemble import IsolationForest
-from db import fetch_df, get_engine
+from db import fetch_df, get_engine, execute
 
 # Engineered features (from feature_engine.py) that describe a work's cost/
 # fund/agency profile. Feeding all of these into Isolation Forest, rather
@@ -31,6 +31,7 @@ def run_cost_engine():
     df = fetch_df(query)
     if df.empty:
         return
+    df = df.reset_index(drop=True)
 
     # --- Build the feature matrix ---
     X = df[ML_FEATURE_COLUMNS].copy()
@@ -139,6 +140,7 @@ def run_cost_engine():
         })
 
     df_res = pd.DataFrame(results)
+    execute("DELETE FROM detection_results WHERE engine_type = 'COST'")
     df_res.to_sql('detection_results', get_engine(), if_exists='append', index=False)
     print(f"Cost Engine completed. Generated {len(df_res)} scores "
           f"({int((pred == -1).sum()) if len(df) >= 10 else 0} ML outliers).")

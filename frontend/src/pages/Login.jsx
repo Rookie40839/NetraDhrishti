@@ -21,8 +21,9 @@ export default function Login() {
     }
   };
 
-  const handleQuickLogin = (roleKey, demoEmail) => {
-    switchDemoRole(roleKey);
+  const handleQuickLogin = async (roleKey, demoEmail) => {
+    setError('');
+    await switchDemoRole(roleKey);
     navigate('/');
   };
 

@@ -11,26 +11,90 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('netradhrishti_token'));
   const [loading, setLoading] = useState(false);
 
-  // Set default demo user if unauthenticated for instant evaluation experience
+  // Seeded credentials for demo personas
+  const DEMO_CREDENTIALS = {
+    district: { email: 'do.pune@india.gov.in', password: 'demo123' },
+    mp: { email: 'mp.pune@india.gov.in', password: 'demo123' },
+    state: { email: 'admin.mh@india.gov.in', password: 'demo123' },
+    mospi: { email: 'admin@mospi.gov.in', password: 'demo123' },
+  };
+
+  const FALLBACK_USERS = {
+    district: {
+      id: 2,
+      name: 'Priya Singh',
+      email: 'do.pune@india.gov.in',
+      role: 'district_officer',
+      districtId: 'Pune',
+      stateId: 'Maharashtra',
+      constituencyId: null,
+    },
+    mp: {
+      id: 1,
+      name: 'Ravi Kumar',
+      email: 'mp.pune@india.gov.in',
+      role: 'MP',
+      constituencyId: 'Pune East',
+      districtId: 'Pune',
+      stateId: 'Maharashtra',
+    },
+    state: {
+      id: 3,
+      name: 'Amit Desai',
+      email: 'admin.mh@india.gov.in',
+      role: 'state_admin',
+      districtId: null,
+      stateId: 'Maharashtra',
+      constituencyId: null,
+    },
+    mospi: {
+      id: 4,
+      name: 'Dr. S. Sharma',
+      email: 'admin@mospi.gov.in',
+      role: 'mospi_admin',
+      districtId: null,
+      stateId: null,
+      constituencyId: null,
+    },
+  };
+
+  const switchDemoRole = async (roleKey) => {
+    setLoading(true);
+    sessionStorage.removeItem('netradhrishti_logged_out');
+    const creds = DEMO_CREDENTIALS[roleKey] || DEMO_CREDENTIALS.district;
+    try {
+      const res = await api.post('/auth/login', creds);
+      const { token: jwtToken, user: userData } = res.data;
+      setToken(jwtToken);
+      setUser(userData);
+      localStorage.setItem('netradhrishti_token', jwtToken);
+      localStorage.setItem('netradhrishti_user', JSON.stringify(userData));
+      return { success: true, user: userData };
+    } catch (err) {
+      console.warn('Backend login endpoint unavailable; applying offline demo persona:', err?.message);
+      const selected = FALLBACK_USERS[roleKey] || FALLBACK_USERS.district;
+      setUser(selected);
+      localStorage.setItem('netradhrishti_user', JSON.stringify(selected));
+      return { success: false, fallback: true, user: selected };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Set default authenticated demo user on initial boot if not explicitly logged out
   useEffect(() => {
-    if (!user) {
-      // Default to District Officer mode for immediate testing
-      const defaultUser = {
-        id: 2,
-        name: 'Priya Singh',
-        email: 'do.pune@india.gov.in',
-        role: 'district_officer',
-        districtId: 'Pune',
-        stateId: 'Maharashtra',
-        constituencyId: null,
-      };
-      setUser(defaultUser);
-      localStorage.setItem('netradhrishti_user', JSON.stringify(defaultUser));
+    const savedToken = localStorage.getItem('netradhrishti_token');
+    const savedUser = localStorage.getItem('netradhrishti_user');
+    const isLoggedOut = sessionStorage.getItem('netradhrishti_logged_out');
+
+    if (!isLoggedOut && (!savedToken || !savedUser)) {
+      switchDemoRole('district');
     }
   }, []);
 
   const login = async (email, password) => {
     setLoading(true);
+    sessionStorage.removeItem('netradhrishti_logged_out');
     try {
       const res = await api.post('/auth/login', { email, password });
       const { token: jwtToken, user: userData } = res.data;
@@ -49,52 +113,8 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const switchDemoRole = (roleKey) => {
-    const demoUsers = {
-      district: {
-        id: 2,
-        name: 'Priya Singh',
-        email: 'do.pune@india.gov.in',
-        role: 'district_officer',
-        districtId: 'Pune',
-        stateId: 'Maharashtra',
-        constituencyId: null,
-      },
-      mp: {
-        id: 1,
-        name: 'Ravi Kumar',
-        email: 'mp.pune@india.gov.in',
-        role: 'MP',
-        constituencyId: 'Pune East',
-        districtId: 'Pune',
-        stateId: 'Maharashtra',
-      },
-      state: {
-        id: 3,
-        name: 'Amit Desai',
-        email: 'admin.mh@india.gov.in',
-        role: 'state_admin',
-        districtId: null,
-        stateId: 'Maharashtra',
-        constituencyId: null,
-      },
-      mospi: {
-        id: 4,
-        name: 'Dr. S. Sharma',
-        email: 'admin@mospi.gov.in',
-        role: 'mospi_admin',
-        districtId: null,
-        stateId: null,
-        constituencyId: null,
-      },
-    };
-
-    const selected = demoUsers[roleKey] || demoUsers.district;
-    setUser(selected);
-    localStorage.setItem('netradhrishti_user', JSON.stringify(selected));
-  };
-
   const logout = () => {
+    sessionStorage.setItem('netradhrishti_logged_out', 'true');
     setUser(null);
     setToken(null);
     localStorage.removeItem('netradhrishti_token');

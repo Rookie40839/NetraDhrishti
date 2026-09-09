@@ -74,28 +74,28 @@ export default function Header() {
               <div className="absolute right-0 mt-1 w-52 bg-white text-slate-800 rounded shadow-xl py-1 z-50 text-xs border border-slate-200">
                 <div className="px-3 py-1 font-bold text-slate-400 border-b uppercase">Test User Persona</div>
                 <button
-                  onClick={() => { switchDemoRole('district'); setRoleMenuOpen(false); }}
+                  onClick={async () => { await switchDemoRole('district'); setRoleMenuOpen(false); }}
                   className="w-full text-left px-3 py-2 hover:bg-indigo-50 flex items-center justify-between"
                 >
                   <span>District Officer</span>
                   <span className="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">Pune</span>
                 </button>
                 <button
-                  onClick={() => { switchDemoRole('mp'); setRoleMenuOpen(false); }}
+                  onClick={async () => { await switchDemoRole('mp'); setRoleMenuOpen(false); }}
                   className="w-full text-left px-3 py-2 hover:bg-indigo-50 flex items-center justify-between"
                 >
                   <span>Member of Parliament</span>
                   <span className="text-[10px] bg-green-100 text-green-800 px-1.5 py-0.5 rounded">Pune East</span>
                 </button>
                 <button
-                  onClick={() => { switchDemoRole('state'); setRoleMenuOpen(false); }}
+                  onClick={async () => { await switchDemoRole('state'); setRoleMenuOpen(false); }}
                   className="w-full text-left px-3 py-2 hover:bg-indigo-50 flex items-center justify-between"
                 >
                   <span>State Admin</span>
                   <span className="text-[10px] bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded">MH</span>
                 </button>
                 <button
-                  onClick={() => { switchDemoRole('mospi'); setRoleMenuOpen(false); }}
+                  onClick={async () => { await switchDemoRole('mospi'); setRoleMenuOpen(false); }}
                   className="w-full text-left px-3 py-2 hover:bg-indigo-50 flex items-center justify-between"
                 >
                   <span>MoSPI Admin</span>
